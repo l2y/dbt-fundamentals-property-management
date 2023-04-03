@@ -1,0 +1,64 @@
+version: 2
+
+sources:
+  - name: property_management
+    database: raw
+
+    freshness:
+      warn_after:
+        count: 1
+        period: day
+      error_after:
+        count: 1
+        period: day
+
+    loaded_at_field: uploaded_at
+
+    tables:
+      - name: leases
+        description: The leases for units
+      - name: units
+        description: The units within a property
+      - name: properties
+      - name: rental_applications
+
+models:
+  - name: stg_units
+    description: This table contains units within a property and it's attributes
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: '{{ doc("status") }}'
+        tests:
+          - accepted_values:
+              values: ['occupied', 'rented', 'vacant', 'construction']
+      - name: property_id
+        tests:
+          - relationships:
+              to: ref('stg_properties')
+              field: id
+          - not_null
+  - name: stg_leases
+    description: This table contains leases of units
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+  - name: stg_properties
+    description: This table contains the properties
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+  - name: stg_rental_applications
+    description: This table contains applications for each unit
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
