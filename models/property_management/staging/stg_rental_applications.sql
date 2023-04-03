@@ -1,0 +1,1 @@
+select * from raw.property_management.rental_applications
