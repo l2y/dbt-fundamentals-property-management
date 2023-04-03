@@ -1,4 +1,4 @@
-{% docs table_events %}
+{% docs status %}
 
 # STG_UNIT - Status
 
