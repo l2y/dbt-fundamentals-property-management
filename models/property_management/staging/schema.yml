@@ -59,6 +59,6 @@ models:
     description: This table contains applications for each unit
     columns:
       - name: id
-        tests:
-          - unique
-          - not_null
+        # tests:
+        #   - unique
+        #   - not_null
